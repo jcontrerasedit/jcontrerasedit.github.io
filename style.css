@@ -1,74 +1,144 @@
-/* Reset y Base */
+/* --- RESET Y BASE --- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    background-color: #121212; /* Fondo oscuro estilo DaVinci */
-    color: #e0e0e0;
+    /* Fondo Negro Puro */
+    background-color: #050505;
+    color: #ffffff;
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
+    
+    /* EFECTO DE PROFUNDIDAD (GRID) */
+    /* Crea rayas blancas muy sutiles vertical y horizontalmente */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px; /* Tamaño de los cuadros */
+    background-position: center center;
+    min-height: 100vh;
 }
 
-/* Layout */
+/* --- LAYOUT --- */
 .container {
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Header */
+/* --- HEADER --- */
 header {
-    padding: 80px 0;
+    padding: 80px 0 40px 0;
     text-align: center;
-    background: linear-gradient(180deg, #1a1a1a 0%, #121212 100%);
+    /* Un degradado suave arriba para que el texto se lea bien sobre la rejilla */
+    background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
 }
-h1 { font-size: 3rem; color: #ffffff; margin-bottom: 10px; }
-.subtitle { font-size: 1.2rem; color: #4dabf7; /* Azul tipo Tech */ font-weight: bold; margin-bottom: 20px; }
-.intro { max-width: 600px; margin: 0 auto 30px auto; color: #a0a0a0; }
 
-/* Botón */
+h1 { 
+    font-size: 3.5rem; 
+    font-weight: 800; 
+    letter-spacing: -1px;
+    margin-bottom: 10px; 
+    color: #fff;
+}
+
+.subtitle { 
+    font-size: 1.2rem; 
+    color: #ff0000; /* ROJO YOUTUBE */
+    font-weight: bold; 
+    margin-bottom: 20px; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.intro { 
+    max-width: 600px; 
+    margin: 0 auto 30px auto; 
+    color: #cccccc; 
+    font-size: 1rem;
+}
+
+/* --- BOTÓN ESTILO YOUTUBE --- */
 .btn {
     display: inline-block;
-    background-color: #4dabf7;
-    color: #000;
-    padding: 10px 25px;
+    background-color: #ff0000; /* Rojo YouTube */
+    color: #fff;
+    padding: 12px 30px;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 5px;
-    transition: background 0.3s;
+    border-radius: 30px; /* Bordes redondeados modernos */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4); /* Resplandor rojo */
 }
-.btn:hover { background-color: #339af0; }
 
-/* Portafolio Grid */
-.portfolio { padding: 50px 0; }
-h2 { text-align: center; margin-bottom: 40px; border-bottom: 2px solid #333; display: inline-block; padding-bottom: 10px; }
+.btn:hover { 
+    background-color: #cc0000; 
+    transform: scale(1.05); /* Crece un poquito al pasar el mouse */
+}
+
+/* --- PORTAFOLIO GRID (VERTICAL) --- */
+.portfolio { padding: 40px 0; }
+
+h2 { 
+    text-align: center; 
+    margin-bottom: 50px; 
+    font-size: 2rem;
+    border-bottom: 2px solid #ff0000; /* Línea roja */
+    display: inline-block; 
+    padding-bottom: 5px;
+}
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    /* Ajuste automático: columnas de mínimo 280px */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
 }
 
 .card {
-    background: #1e1e1e;
-    border-radius: 8px;
+    background: #111; /* Tarjeta casi negra */
+    border: 1px solid #333;
+    border-radius: 12px;
     overflow: hidden;
-    transition: transform 0.2s;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
-.card:hover { transform: translateY(-5px); }
 
+.card:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.15); /* Sombra roja sutil */
+    border-color: #ff0000;
+}
+
+/* --- EL CAMBIO CLAVE: FORMATO VERTICAL 9:16 --- */
 .video-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* Ratio 16:9 */
-    height: 0;
+    width: 100%;
+    /* 16 / 9 = 56.25% (Horizontal) */
+    /* 9 / 16 = 177.77% (Vertical / Shorts) */
+    padding-bottom: 177.77%; 
     background: #000;
 }
+
 .video-wrapper iframe, .video-wrapper .placeholder {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
 }
-.placeholder { display: flex; align-items: center; justify-content: center; color: #555; }
 
-.card h3 { padding: 15px 15px 5px 15px; font-size: 1.1rem; }
-.card p { padding: 0 15px 20px 15px; font-size: 0.9rem; color: #aaa; }
+.card h3 { 
+    padding: 20px 20px 5px 20px; 
+    font-size: 1.2rem; 
+    color: #fff;
+}
 
-/* Footer */
-footer { text-align: center; padding: 40px; color: #555; font-size: 0.8rem; }
+.card p { 
+    padding: 0 20px 25px 20px; 
+    font-size: 0.9rem; 
+    color: #888; 
+}
+
+/* --- FOOTER --- */
+footer { 
+    text-align: center; 
+    padding: 60px 20px; 
+    color: #444; 
+    font-size: 0.8rem; 
+}
