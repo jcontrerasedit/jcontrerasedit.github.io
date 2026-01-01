@@ -21,18 +21,24 @@ body {
     100% { background-position: 50px 50px; }
 }
 
-/* --- LAYOUT --- */
+/* --- LAYOUT GLOBAL --- */
 .container {
-    max-width: 95%; 
-    /* Agregamos un tope máximo de seguridad para monitores Ultra-Wide */
+    max-width: 95%; /* Ocupa la pantalla, pero deja márgenes */
+    /* Para monitores ultra-anchos, limitamos para que no se vea eterno */
     margin: 0 auto;
     padding: 0 20px;
 }
 
+/* Si la pantalla es muy grande (ej. 4K), centramos el contenido */
+@media (min-width: 1920px) {
+    .container { max-width: 1600px; }
+}
+
 /* --- HEADER --- */
 header {
-    padding: 60px 0 40px 0;
+    padding: 80px 0 50px 0;
     text-align: center;
+    /* Fondo radial suave detrás del texto */
     background: radial-gradient(circle, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0) 70%);
 }
 
@@ -99,26 +105,23 @@ h2 {
 
 .grid-vertical {
     display: grid;
-    /* Forzamos 4 columnas, pero con un ancho máximo por tarjeta */
+    /* 4 columnas en PC, ajustables */
     grid-template-columns: repeat(4, 1fr); 
     gap: 20px;
     margin-bottom: 60px;
     width: 100%;
 }
 
-/* --- RESPONSIVE --- */
-/* Tablets grandes y laptops pequeñas */
+/* Responsive Breakpoints */
 @media (max-width: 1200px) {
     .grid-vertical { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Tablets normales */
 @media (max-width: 900px) {
     .grid-vertical { grid-template-columns: repeat(2, 1fr); }
     h1 { font-size: 2.5rem; }
 }
 
-/* Celulares */
 @media (max-width: 600px) {
     .grid-vertical { grid-template-columns: 1fr; }
     h1 { font-size: 2rem; }
@@ -134,19 +137,17 @@ h2 {
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Asegura altura igual en filas */
+    height: 100%;
 }
 
-/* EFECTO NEÓN AL PASAR MOUSE */
+/* EFECTO NEÓN ROJO AL PASAR MOUSE */
 .card:hover { 
     transform: translateY(-8px); 
-    /* Sombra roja difuminada (efecto neón) */
     box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2), 0 0 15px rgba(255, 0, 0, 0.4); 
     border-color: #ff0000;
 }
 
-/* --- FORMATOS DE VIDEO --- */
-
+/* --- VIDEO WRAPPERS --- */
 /* Vertical (9:16) */
 .video-wrapper-vertical {
     position: relative;
@@ -163,7 +164,9 @@ h2 {
     background: #000;
 }
 
-.video-wrapper-vertical iframe, .video-wrapper-horizontal iframe, .video-wrapper-vertical img {
+.video-wrapper-vertical iframe, 
+.video-wrapper-horizontal iframe, 
+.video-wrapper-vertical img {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
 }
@@ -192,11 +195,42 @@ h2 {
     margin: 0 auto; 
 }
 
-/* --- FOOTER --- */
+/* --- FOOTER & REDES SOCIALES --- */
 footer { 
     text-align: center; 
     padding: 60px 20px; 
     color: #444; 
-    font-size: 0.8rem; 
     background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.social-links a {
+    color: #666; 
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+    width: 32px; 
+    height: 32px;
+}
+
+.social-links a:hover {
+    color: #ff0000; 
+    transform: translateY(-3px);
+}
+
+.discord-user {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 10px;
+    font-family: monospace; /* Fuente estilo código */
+    letter-spacing: 0.5px;
+}
+
+footer p:last-child {
+    font-size: 0.8rem;
 }
