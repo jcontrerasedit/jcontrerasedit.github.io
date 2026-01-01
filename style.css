@@ -2,43 +2,37 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    /* Fondo Negro Puro */
     background-color: #050505;
     color: #ffffff;
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     
-    /* --- FONDO ANIMADO DE INGENIERÍA --- */
-    /* Cuadrícula técnica */
+    /* FONDO ANIMADO MATRIX/TECH */
     background-image: 
         linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-    background-size: 50px 50px; /* Tamaño de los cuadros */
-    
-    /* Esta línea activa la magia: Animación infinita */
+    background-size: 50px 50px;
     animation: moveGrid 4s linear infinite;
-    
     min-height: 100vh;
 }
 
-/* Definimos el movimiento del fondo (Bucle Eterno) */
 @keyframes moveGrid {
     0% { background-position: 0 0; }
-    100% { background-position: 50px 50px; } /* Se mueve el tamaño exacto del cuadro para que sea imperceptible el corte */
+    100% { background-position: 50px 50px; }
 }
 
-/* --- LAYOUT --- */
+/* --- LAYOUT (AQUÍ ESTÁ EL CAMBIO DE TAMAÑO) --- */
 .container {
-    max-width: 1000px;
+    /* Antes era 1000px, ahora usamos el 95% del ancho para llenar la pantalla */
+    max-width: 95%; 
     margin: 0 auto;
     padding: 0 20px;
 }
 
 /* --- HEADER --- */
 header {
-    padding: 80px 0 40px 0;
+    padding: 60px 0 40px 0;
     text-align: center;
-    /* Fondo semi-transparente para que el texto resalte sobre la rejilla en movimiento */
     background: radial-gradient(circle, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0) 70%);
 }
 
@@ -53,7 +47,7 @@ h1 {
 
 .subtitle { 
     font-size: 1.2rem; 
-    color: #ff0000; /* ROJO YOUTUBE */
+    color: #ff0000; 
     font-weight: bold; 
     margin-bottom: 20px; 
     text-transform: uppercase;
@@ -61,17 +55,17 @@ h1 {
 }
 
 .intro { 
-    max-width: 600px; 
+    max-width: 700px; 
     margin: 0 auto 30px auto; 
     color: #cccccc; 
-    font-size: 1rem;
-    background-color: rgba(0,0,0,0.6); /* Placa oscura para leer mejor */
-    padding: 15px;
+    font-size: 1.1rem;
+    background-color: rgba(0,0,0,0.6);
+    padding: 20px;
     border-radius: 10px;
     backdrop-filter: blur(5px);
+    border: 1px solid #222;
 }
 
-/* --- BOTÓN ESTILO YOUTUBE --- */
 .btn {
     display: inline-block;
     background-color: #ff0000;
@@ -87,36 +81,46 @@ h1 {
 .btn:hover { 
     background-color: #cc0000; 
     transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); /* Más brillo al pasar el mouse */
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
 }
 
-/* --- PORTAFOLIO GRID --- */
+/* --- GRID DE VIDEOS VERTICALES (FILAS DE 4) --- */
 .portfolio { padding: 40px 0; }
 
 h2 { 
     text-align: center; 
-    margin-bottom: 50px; 
+    margin-bottom: 40px; 
     font-size: 2rem;
     border-bottom: 2px solid #ff0000;
     display: inline-block; 
     padding-bottom: 5px;
-    background-color: rgba(0,0,0,0.8); /* Fondo negro tras el texto */
-    padding-left: 10px;
-    padding-right: 10px;
+    background-color: rgba(0,0,0,0.8);
 }
 
-.grid {
+.grid-vertical {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 40px;
+    /* En PC forzamos 4 columnas iguales */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; /* Espacio entre videos */
+    margin-bottom: 60px;
+}
+
+/* Responsive: En tablets 2 columnas, en celular 1 columna */
+@media (max-width: 1024px) {
+    .grid-vertical { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .grid-vertical { grid-template-columns: 1fr; }
 }
 
 .card {
-    background: #0a0a0a; /* Fondo muy oscuro */
+    background: #0a0a0a;
     border: 1px solid #333;
     border-radius: 12px;
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover { 
@@ -125,29 +129,50 @@ h2 {
     border-color: #ff0000;
 }
 
-/* --- FORMATO VERTICAL 9:16 --- */
-.video-wrapper {
+/* --- FORMATOS DE VIDEO --- */
+
+/* Formato Vertical (9:16) - Alto */
+.video-wrapper-vertical {
     position: relative;
     width: 100%;
-    padding-bottom: 177.77%; 
+    padding-bottom: 177.77%; /* Ratio TikTok */
     background: #000;
 }
 
-.video-wrapper iframe, .video-wrapper .placeholder {
+/* Formato Horizontal (16:9) - Ancho */
+.video-wrapper-horizontal {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* Ratio YouTube Normal */
+    background: #000;
+}
+
+.video-wrapper-vertical iframe, .video-wrapper-horizontal iframe {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
 }
 
+.card-content {
+    padding: 15px;
+    flex-grow: 1; /* Para que todos los textos se alineen bien */
+}
+
 .card h3 { 
-    padding: 20px 20px 5px 20px; 
-    font-size: 1.2rem; 
+    font-size: 1.1rem; 
     color: #fff;
+    margin-bottom: 8px;
 }
 
 .card p { 
-    padding: 0 20px 25px 20px; 
-    font-size: 0.9rem; 
-    color: #888; 
+    font-size: 0.85rem; 
+    color: #999; 
+    line-height: 1.4;
+}
+
+/* --- SECCIÓN ESPECIAL VIDEO HORIZONTAL (FIVERR) --- */
+.horizontal-section {
+    max-width: 800px; /* Limitamos el ancho para que no se vea gigante */
+    margin: 0 auto;   /* Centrado */
 }
 
 /* --- FOOTER --- */
